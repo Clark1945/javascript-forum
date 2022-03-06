@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/ex6',{useNewUrlParser:true});
+mongoose.connect('mongodb://localhost:27017/ex6-5',{useNewUrlParser:true});
 
 var memberSchema = new mongoose.Schema({
     name:String,
