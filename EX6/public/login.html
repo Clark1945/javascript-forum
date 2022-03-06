@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name = 'viewport' content = "width=device-width,initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+        <title>Login</title>
+    </head>
+    <body>
+        <header class="header">
+            <div>
+                <a id="login" class = "headerright" href="/public/login.html">登入</a>
+                <a id="logout" class="headerright" href="#" onclick="logout()">登出</a>
+                <a id="changePass" class="headerright" href="/public/changePass.html">修改密碼</a>
+                <p id="username" class="headerright">Username:</p>
+            </div>
+        </header>
+        <div class="w401eftblank"></div>
+        <div class="form-style w20div">
+            <h1>登入</h1>
+            <div class="w100div">
+                <button class = "commonbtn" style="float:right;" onclick=" location.href='/public/index.html'">
+                回首頁</button>
+            </div>
+            <fieldset>
+                <legend>登入</legend>
+                <label for="field1">
+                    <span>帳號:
+                        <span class = "required">*</span>
+                    </span>
+                    <input type="text" id="account" class="input-field"/>
+                </label>
+                <label for="field1">
+                    <span>密碼:
+                        <span class = "required">*</span>
+                    </span>
+                    <input type="text" id="password" class="input-field"/>
+                </label>
+                <label>
+                    <input type="submit" onclick="login()" value="登入"/>
+                    <input type="submit" onclick="register()" value="註冊"/>
+                </label>
+                <div id="errormsg" style="color:red"></div>
+            </fieldset>
+        </div>
+        <script src = "http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script type = "text/javascript" src="./javascripts/login.js"></script>
+        <script type="text/javascript" src="./javascripts/header.js"></script>
+    </body>
+</html>
