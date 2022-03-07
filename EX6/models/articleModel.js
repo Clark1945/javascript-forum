@@ -8,7 +8,7 @@ var articleSchema = new mongoose.Schema({
     title:String,
     content:String,
     like:Array,
-    Comment:Array,
+    comment:Array,
     postdate:Date
 });
 articleSchema.set('collection','article');

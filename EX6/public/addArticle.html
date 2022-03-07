@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = 'viewport' content = "width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+    <title>addArticle</title>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <a id="login" class = "headerright" href="/public/login.html">登入</a>
+            <a id="logout" class="headerright" href="#" onclick="logout()">登出</a>
+            <a id="changePass" class="headerright" href="/public/changePass.html">修改密碼</a>
+            <p id="username" class="headerright">Username:</p>
+            <a id="blog" class="headerright" href="/public/blog.html">論壇</a>
+        </div>
+    </header>
+    <div class="w301eftblank"></div>
+    <div class="form-style w40div">
+        <div style="width: 100%;float: left;">
+            <button class="commonbtn" style="float: right;" onclick="location.href='/public/blog.html'">回上一頁</button>
+        </div>
+    <form>
+        <fieldset>
+            <legend>發文</legend>
+            <label for="field4">
+                <span>看板
+                    <span class="required">*</span>
+                </span>
+                <select id="type" class="select-field">
+                    <option value="心情">心情</option>
+                    <option value="分享">分享</option>
+                    <option value="有趣">有趣</option>
+                </select>
+            </label>
+            <label for="field1">
+                <span>標題
+                    <span class="required">*</span>
+                </span>
+                <input type="text" id="title" class="input-field" value=""/>
+            </label>
+            <label for="field6">
+                <span>內文
+                    <span class="required">*</span>
+                </span>
+                <textarea id="content" class="textarea-field"></textarea>
+            </label>
+            <label>
+                <span>&nbsp;</span>
+                <input type="submit" onclick="addArticle()" value=" 送出 ">
+            </label>
+        </fieldset>
+    </form>
+    </div>
+        <script src = "http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script type="text/javascript" src="./javascripts/header.js"></script>
+        <script type="text/javascript" src="./javascripts/addArticle.js"></script>
+</body>
+</html>

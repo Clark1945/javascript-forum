@@ -6,7 +6,7 @@ var logger = require('morgan');
 var memberRouter = require('./routes/memberApi');//引入memberAPI
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var blogRouter=require('./routes/blogApi');
 var app = express();
 
 // view engine setup
@@ -23,6 +23,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/member',memberRouter);//設定路徑參數
 app.use('/public',express.static('public'));//使Express得以存取CSS,JS等靜態檔案。
+app.use('/blog',blogRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
