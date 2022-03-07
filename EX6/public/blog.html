@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = 'viewport' content = "width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>Blog</title>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <a id="login" class = "headerright" href="/public/login.html">登入</a>
+            <a id="logout" class="headerright" href="#" onclick="logout()">登出</a>
+            <a id="changePass" class="headerright" href="/public/changePass.html">修改密碼</a>
+            <p id="username" class="headerright">Username:</p>
+            <a id="blog" class="headerright" href="/public/blog.html">論壇</a>
+        </div>
+    </header>
+    <div class="w20leftblank"></div>
+    <div class="wrap-table100  w60div">
+        <div style="width:100%">
+            <button class="commonbtn" style="margin:10px" onclick="location.href='/public/addArticle.html'">新增文章</button>
+            <button class="commonbtn mg10pxbtn" onclick="search()">搜尋</button>
+            <input id="title" class="searchinput" type="text" />
+            <div class="mg15pxdiv">
+                分類看板
+                <select id="type" class="selectborder" onchange="changetype()">
+                    <option value="">全部</option>
+                    <option value="心情">心情</option>
+                    <option value="分享">分享</option>
+                    <option value="有趣">有趣</option>
+                </select>
+            </div>
+        </div>
+        </br>
+        <div class="table100 ver2 m-b-110">
+            <div class="table100-head">
+                <table>
+                    <thead>
+                        <tr class="row100 head">
+                            <th class="cell100 column1">主題</th>
+                            <th class="cell100 column2">標題</th>
+                            <th class="cell100 column3">愛心</th>
+                            <th class="cell100 column4">回覆</th>
+                            <th class="cell100 column5">發布人</th>
+                            <th class="cell100 column6">日期</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="table100-body js-pscroll">
+                <table>
+                    <tbody id="article">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript" src="./javascripts/header.js"></script>
+    <script type="text/javascript" src="./javascripts/blog.js"></script>
+</body>
+</html>
