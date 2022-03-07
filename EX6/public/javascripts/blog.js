@@ -26,7 +26,7 @@ function newarticle(data){
     `;
 
     content.insertAdjacentHTML('beforeend',addHtml);
-    $('#content').append(content);
+    $('#article').append(content);
 }
 function getUrlVal(val){
     var query=window.location.search.substring(1);
@@ -43,5 +43,30 @@ function search(){
     location.href='/public/blog.html?title='+$('#title').val();
 }
 function changeType(){
-    
+    if($('#type').val() !=''||$('#type').val()!=null){
+        location.href='/public/blog.html?type='+$('#type').val();
+    }
+    else{
+        location.href='/public/blog.html';
+    }
 }
+function getArticle(){
+    var search='';
+    if(getUrlVal('type')){
+        search+="type="+getUrlVal("type")+"&";
+    }
+    if(getUrlVal('account')){
+        search+="account="+getUrlVal("account")+"&";
+    }
+    if(getUrlVal('title')){
+        search+="title="+getUrlVal("title")+"&";
+    }
+
+    $.get('/blog/getArticle?'+search,function(res,status){
+        $('#type').val(res.type);
+        for(var i =0;i<res.data.length;i++){
+            newarticle(res.data[i]);
+        }
+    });
+}
+getArticle();
