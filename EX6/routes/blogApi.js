@@ -52,7 +52,11 @@ router.get('/getArticleById',function(req,res){
             res.json({'status':1,"msg":"無此文章"});
         }
         else{
-            memberModel.find({
+            if(err){
+                res.json({'status':0,'msg':'error'});
+            }
+            else{
+                memberModel.find({
                 account:data[0].account},
                 function(err,mem){//mem為找到的會員資料
                     res.json({
@@ -70,7 +74,51 @@ router.get('/getArticleById',function(req,res){
                         }
                     });
                 });
+            }
         }
+    });
+});
+router.post('/editArticle',function(req,res){
+    articleModel.findById(req.body._id,function(err,data){
+        data.content=req.body.content;
+        data.save(function(err){
+            if(err){
+                res.json({'status':1,'msg':'error'});
+            }
+            else{
+                res.json({'status':0,'msg':'success'});
+            }
+        });
+    });
+});
+
+router.post('/delArticle', function (req, res) {
+    articleModel.findByIdAndRemove(req.body._id, function (err, data) {
+        if (err) {
+            console.log(err);
+            res.json({ "status": 1, "msg": "error" });
+        }
+        else {
+            res.json({ "status": 0, "msg": "success" });
+        }
+    });
+});
+router.post("/pushlike",function(req,res){
+    articleModel.findById(req.body._id,function(err,data){
+        if(data.like.indexOf(req.body.account)<0){
+            data.like.push(req.body.account);
+        }
+        else{
+            data.like.splice(data.like.indexOf(req.body.account),1);
+        }
+        data.save(function(err){
+            if(err){
+                res.json({'status':1,'msg':'error'});
+            }
+            else{
+                res.json({'status':0,'msg':'success','like':data.like.length});
+            }
+        });
     });
 });
 module.exports=router;
