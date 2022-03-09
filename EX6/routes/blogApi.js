@@ -1,7 +1,8 @@
 var express=require("express");
 var router=express.Router();
 var memberModel=require("../models/memberModel");
-var articleModel=require("../models/articleModel")
+var articleModel=require("../models/articleModel");
+const { route } = require("express/lib/application");
 
 
 router.post("/addArticle",function(req,res){
@@ -117,6 +118,30 @@ router.post("/pushlike",function(req,res){
             }
             else{
                 res.json({'status':0,'msg':'success','like':data.like.length});
+            }
+        });
+    });
+});
+router.post('/addComment',function(req,res){
+    articleModel.findById(req.body._id,function(err,data){
+        var newID=1;
+        if(data.comment.length>0){
+            newID=Math.max(...data.comment.map(p=>p.id));
+        }
+        var newcomment={
+            id:newID+1,
+            account:req.body.account,
+            name:req.body.name,
+            message:req.body.message,
+            like:[],
+            data:new Date()
+        };
+        data.comment.push(newcomment);
+        data.save(function(err){
+            if(err){
+                res.json({'status':1,'msg':'error'});
+            }else{
+                res.json({'status':0,'msg':'success'});
             }
         });
     });

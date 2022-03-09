@@ -36,7 +36,30 @@ function initArticle(data){
         $('#a_like').addClass('red');
         $('#a_like').removeClass('red_2');
     }
-}
+    var comment="";
+    var i=1;
+    data.comment.forEach(function(com){
+        comment="";
+
+        var commentdate=new Date(com.date);
+        commentdate=(commentdate.getMonth()+1)+'月'+commentdate.getDate()+'日'+
+        commentdate.getHours()+":"+commentdate.getMinutes();
+        comment=`<div class="${com.id}">
+        <div class="a_head"><h2>#${i}</h2></div>
+        <div>
+        <img src="images/icons/avatar-icons.png" width='50px' height='50px' style="float_left">
+        </div>
+        <h3 style="margin-bottom:0;margin-top:0;">
+        ${com.name}
+        (<a class="person" href="blog.html?account=${com.account}">
+        ${com.account}</a>)
+        </h3>${commentdate}</div>
+        <div class="comRow" style="border-bottom: 1px solid #dfdfdf;padding="24px 0;">${com.message}</div>
+        </div>`;
+        $('#a_comment').append(comment);
+        i++;
+    });
+};
 function getUrlVal(val){
     var query=window.location.search.substring(1);
     var vars=query.split("&");
@@ -94,4 +117,53 @@ function delArticle(_id) {
             location.href = '/public/blog.html';
         }
     });
+}
+$('#a_like').on('click',function(){
+    if(!$.cookie('userID') || $.cookie('userID')=="null"){
+        alert("請先登入會員。");
+        location.href="/public/login.html";
+        return;
+    }
+    if($('#a_like').attr('class')=='btn red_2'){
+        $('#a_like').addClass('red');
+        $('#a_like').removeClass('red_2');
+    }
+    else if($('#a_like').attr('class')=='btn_red'){
+        $('#a_like').addClass('red_2');
+        $('#a_like').removeClass('red');
+    }
+    $.post('/blog/pushlike',{
+        '_id':getUrlVal("_id"),
+        'account':$.cookie('userID')    
+    },function(res){
+        if(res.status==0){
+            $('#a_like_count').text(res.like);
+        }
+    });
+});
+function showcomment(){
+    if($('#commentform').css('display','none')){
+        $('#commentform').css('display','block');
+    }else{
+        $('#commentform').css('display','none');
+    }
+}
+function addComment(){
+    if(!$.cookie('userID') || $.cookie('userID')=="null"){
+        alert("請先登入會員。");
+        location.href="/public/login.html";
+        return;
+    }
+    var message=$('#content').val().replace(/ /g,'&nbsp;').replace(/\n/g,"<br />");
+    $.post("/blog/addComment",{
+        '_id':getUrlVal('_id'),
+        'account':$.cookie('userID'),
+        'name':$.cookie('username'),
+        'message':message
+    },function(res){
+            if(res.status==0){
+                alert('新增成功');
+                history.go(0);
+            }
+        });
 }

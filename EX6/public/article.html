@@ -34,9 +34,25 @@
                 <a class="btn red" id="a_like" style="float: right;">&#9825;like
                 <span id="a_like_count">喜歡人數</span>
                 </a>
+                <a class="btn blue" style="float: right" onclick="showcomment()">&#128172;回應</a>
             </div>
         </fieldset>
+        <fieldset id="commentform" style="display:none">
+            <legend>我要回應</legend>
+            <label for="field6">
+                <span>內容</span>
+                <textarea id="content" class="textarea-field"></textarea>
+            </label>
+            <label>
+                <span>&nbsp;</span>
+                <input type="submit" onclick="addComment()" value="送出">
+            </label>
+        </fieldset>
+        <fieldset id="a_comment" style="display:none">
+            <h2>回應</h2>
+        </fieldset>        
     </div>
+
         <script src = "http://code.jquery.com/jquery-1.10.2.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script type="text/javascript" src="./javascripts/header.js"></script>

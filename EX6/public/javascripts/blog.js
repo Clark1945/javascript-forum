@@ -14,7 +14,7 @@ function newarticle(data){
     <td class="cell100 column1">
     <a href="/public/blog.html?type=${data.type}">${data.type}</a></td>
     <td class="cell100 column2">
-    <a href="/public/blog.html?type=${data._id}">${data.title}</a></td>
+    <a href="/public/article.html?_id=${data._id}">${data.title}</a></td>
     <td class="cell100 column3">
     ${data.like.length}</td>
     <td class="cell100 column4">
