@@ -146,5 +146,74 @@ router.post('/addComment',function(req,res){
         });
     });
 });
+router.post('/editComment', function (req, res) {
+    articleModel.findById(req.body._id, function (err, data) {
+        data.comment.forEach(function (com) {
+            if (com.id == parseInt(req.body.c_id)) {
+                var key = data.comment.indexOf(com);
+                data.comment[key].message = req.body.message;
+                data.markModified('comment');
+                data.save(function (err) {
+                    if (err) {
+                        res.json({ "status": 1, "msg": "error" });
+                    }
+                    else {
+                        res.json({
+                            "status": 0,
+                            "msg": "success"
+                        });
+                    }
+                });
+            }
+        });
+    });
+});
+router.post('/delComment', function (req, res) {
+    articleModel.findById(req.body._id, function (err, data) {
+        data.comment.forEach(function (com) {
+            if (com.id == parseInt(req.body.c_id)) {
+                var key = data.comment.indexOf(com);
+                data.comment.splice(data.comment[key], 1)
+                data.markModified('comment');
+                data.save(function (err) {
+                    if (err) {
+                        res.json({ "status": 1, "msg": "error" });
+                    }
+                    else {
+                        res.json({
+                            "status": 0,
+                            "msg": "success"
+                        });
+                    }
+                });
+            }
+        });
+    });
+});
+router.post('/commentlike',function(req,res){
+    var length=0;
+    articleModel.findById(req.body._id,function(err,data){
+        data.comment.forEach(function(com){
+            if(com.id==parseInt(req.body.c_id)){
+                var key=data.comment.indexOf(com);
+                if(data.comment[key].like.indexOf(req.body.account)<0){
+                    data.comment[key].like.push(req.body.account);
+                }else{
+                    data.comment[key].like.splice(
+                        data.comment[key].like.indexOf(com),1);
+                }
+                length=data.comment[key].like.length;
+                data.markModified('comment');
+                data.save(function(err){
+                    if(err){
+                        res.json({'status':1,'msg':'error'});
+                    }else{
+                        res.json({'status':0,'msg':'success','like':length});
+                    }
+                });
+            }
+        });
+    });
+});
 module.exports=router;
 
