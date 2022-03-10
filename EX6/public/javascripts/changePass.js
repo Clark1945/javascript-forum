@@ -17,7 +17,7 @@ function changePass(){
             }
             else{
                 alert('修改成功。');
-                location.href="/public/login.html";
+                location.href="/public/blog.html";
             }
         });
     }

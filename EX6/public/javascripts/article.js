@@ -254,3 +254,29 @@ function delComment(c_id) {
         }
     });
 }
+//喜歡回應
+$(document).on('click', '.like', function () {
+    if (!$.cookie('userID') || $.cookie('userID') == "null") {
+        alert("請先登入會員");
+        location.href = '/public/login.html';
+        return;
+    }
+    if ($(this).attr('class') == 'like btn green_2') {
+        $(this).addClass('green');
+        $(this).removeClass('green_2');
+    }
+    else if ($(this).attr('class') == 'like btn green') {
+        $(this).addClass('green_2');
+        $(this).removeClass('green');
+    }
+    $.post("/blog/commentlike", {
+        '_id': getUrlVal("_id"),
+        'account': $.cookie('userID'),
+        'c_id': $(this).parent().attr("id")
+    },
+        function (res) {
+            if (res.status == 0) {
+                $('#like_count').text(res.like);
+            }
+        });
+});

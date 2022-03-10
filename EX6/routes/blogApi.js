@@ -190,30 +190,39 @@ router.post('/delComment', function (req, res) {
         });
     });
 });
-router.post('/commentlike',function(req,res){
-    var length=0;
-    articleModel.findById(req.body._id,function(err,data){
-        data.comment.forEach(function(com){
-            if(com.id==parseInt(req.body.c_id)){
-                var key=data.comment.indexOf(com);
-                if(data.comment[key].like.indexOf(req.body.account)<0){
+router.post('/commentlike', function (req, res) {
+    var length = 0;
+    articleModel.findById(req.body._id, function (err, data) {
+        data.comment.forEach(function (com) {
+            if (com.id == parseInt(req.body.c_id)) {
+                var key = data.comment.indexOf(com);
+                if (data.comment[key].
+                    like.indexOf(req.body.account) < 0) {
                     data.comment[key].like.push(req.body.account);
-                }else{
-                    data.comment[key].like.splice(
-                        data.comment[key].like.indexOf(com),1);
+                    console.log(data);
                 }
-                length=data.comment[key].like.length;
+                else {
+                    data.comment[key].like.splice(
+                        data.comment[key].like.indexOf(req.body.account), 1);
+                }
+                length = data.comment[key].like.length;
                 data.markModified('comment');
-                data.save(function(err){
-                    if(err){
-                        res.json({'status':1,'msg':'error'});
-                    }else{
-                        res.json({'status':0,'msg':'success','like':length});
+                data.save(function (err) {
+                    if (err) {
+                        res.json({
+                            "status": 1, "msg": "error"
+                        });
+                    }
+                    else {
+                        res.json({
+                            "status": 0, "msg": "success", "like": length
+                        });
                     }
                 });
             }
         });
     });
 });
+
 module.exports=router;
 

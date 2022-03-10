@@ -14,7 +14,7 @@ function login(){
                 $.cookie('userName',res.data.name);//儲存在Cookie的名稱與值
                 $.cookie('userID',res.data.account);//儲存在Cookie的名稱與值
                 alert('登入成功!');
-                location.href='/public/index.html';
+                location.href='/public/blog.html';
             }
     });
 }
