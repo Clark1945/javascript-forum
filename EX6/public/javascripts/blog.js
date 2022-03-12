@@ -22,14 +22,14 @@ function newarticle(data){
     <td class="cell100 column5">
     <a href="/public/blog.html?account=${data.account}">${data.account}</a></td>
     <td class="cell100 column6">
-    <a href="/public/blog.html?postdate=${crt_date}">${crt_date}</a></td>
+    ${crt_date}</td>
     `;
 
     content.insertAdjacentHTML('beforeend',addHtml);
     $('#article').append(content);
 }
 function getUrlVal(val){
-    var query=window.location.search.substring(1);
+    var query=window.location.search.substring(1); //取得網址的搜尋字串扣除?符號
     var vars=query.split("&");
     for(var i =0;i<vars.length;i++){
         var pair=vars[i].split("=");
@@ -39,10 +39,11 @@ function getUrlVal(val){
     }
     return (false);
 }
+
 function search(){
     location.href='/public/blog.html?title='+$('#title').val();
 }
-function changeType(){
+function changetype(){
     if($('#type').val() !=''||$('#type').val()!=null){
         location.href='/public/blog.html?type='+$('#type').val();
     }
@@ -53,7 +54,7 @@ function changeType(){
 function getArticle(){
     var search='';
     if(getUrlVal('type')){
-        search+="type="+getUrlVal("type")+"&";
+        search+="type="+getUrlVal("type")+"&"; 
     }
     if(getUrlVal('account')){
         search+="account="+getUrlVal("account")+"&";
@@ -61,7 +62,7 @@ function getArticle(){
     if(getUrlVal('title')){
         search+="title="+getUrlVal("title")+"&";
     }
-
+//偵測Url，如果找到搜尋字串則加入search中
     $.get('/blog/getArticle?'+search,function(res,status){
         $('#type').val(res.type);
         for(var i =0;i<res.data.length;i++){

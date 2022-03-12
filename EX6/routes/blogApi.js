@@ -26,7 +26,7 @@ router.post("/addArticle",function(req,res){
     });
 });
 
-router.get('/getArticle',function(req,res){
+router.get('/getArticle',function(req,res){ //資料回傳，type or account or title 若為空則不進行篩選，全數回傳。
     var type=(req.query.type!=undefined)?
     req.query.type:"";
     var account=(req.query.account!=undefined)?
@@ -36,7 +36,7 @@ router.get('/getArticle',function(req,res){
 
     articleModel.find({
         "account":account!=""?account:{$regex: '.*'+account+'.*'},
-        "type": {$regex: '.*'+type+'.*'},
+        "type": {$regex: '.*'+type+'.*'}, 
         "title":{$regex: '.*'+title+'.*'}
     },function (err,data){
         if(err){
