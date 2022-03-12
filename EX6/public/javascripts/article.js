@@ -36,8 +36,8 @@ function initArticle(data) {
                     </div>`;
     $('#a_content').append(content);
     //喜歡文章初始化狀態
-    $('#a_like_count').text(data.like.length);
-    if (data.like.indexOf($.cookie('userID')) != -1) {
+    $('#a_like_count').text(data.like.length); //以喜歡數取代文字
+    if (data.like.indexOf($.cookie('userID')) != -1) {  //讀取時套用不同樣式
         $('#a_like').addClass('red_2');
         $('#a_like').removeClass('red');
     } else {
@@ -173,7 +173,7 @@ $("#a_like").on('click', function () {
         location.href = '/public/login.html';
         return;
     }
-    if ($('#a_like').attr('class') == 'btn red_2') {
+    if ($('#a_like').attr('class') == 'btn red_2') {//觸發時套用不同樣式
         $('#a_like').addClass('red');
         $('#a_like').removeClass('red_2');
     }
@@ -272,7 +272,7 @@ $(document).on('click', '.like', function () {
     $.post("/blog/commentlike", {
         '_id': getUrlVal("_id"),
         'account': $.cookie('userID'),
-        'c_id': $(this).parent().attr("id")
+        'c_id': $(this).parent().attr("id") //=${com.id}
     },
         function (res) {
             if (res.status == 0) {

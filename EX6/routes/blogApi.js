@@ -106,7 +106,7 @@ router.post('/delArticle', function (req, res) {
 });
 router.post("/pushlike",function(req,res){
     articleModel.findById(req.body._id,function(err,data){
-        if(data.like.indexOf(req.body.account)<0){
+        if(data.like.indexOf(req.body.account)<0){ //like是否有紀錄account，有則刪除無則加入
             data.like.push(req.body.account);
         }
         else{
@@ -125,7 +125,7 @@ router.post("/pushlike",function(req,res){
 router.post('/addComment',function(req,res){
     articleModel.findById(req.body._id,function(err,data){
         var newID=1;
-        if(data.comment.length>0){
+        if(data.comment.length>0){  //若回應數>0，取得所有發文ID，並使用... 展開成個別值
             newID=Math.max(...data.comment.map(p=>p.id));
         }
         var newcomment={
@@ -134,9 +134,9 @@ router.post('/addComment',function(req,res){
             name:req.body.name,
             message:req.body.message,
             like:[],
-            data:new Date()
+            date:new Date()
         };
-        data.comment.push(newcomment);
+        data.comment.push(newcomment);//加入回覆
         data.save(function(err){
             if(err){
                 res.json({'status':1,'msg':'error'});
@@ -150,8 +150,8 @@ router.post('/editComment', function (req, res) {
     articleModel.findById(req.body._id, function (err, data) {
         data.comment.forEach(function (com) {
             if (com.id == parseInt(req.body.c_id)) {
-                var key = data.comment.indexOf(com);
-                data.comment[key].message = req.body.message;
+                var key = data.comment.indexOf(com);//回覆中的第幾筆資料
+                data.comment[key].message = req.body.message;//取代資料
                 data.markModified('comment');
                 data.save(function (err) {
                     if (err) {
@@ -173,7 +173,7 @@ router.post('/delComment', function (req, res) {
         data.comment.forEach(function (com) {
             if (com.id == parseInt(req.body.c_id)) {
                 var key = data.comment.indexOf(com);
-                data.comment.splice(data.comment[key], 1)
+                data.comment.splice(data.comment[key], 1);
                 data.markModified('comment');
                 data.save(function (err) {
                     if (err) {
