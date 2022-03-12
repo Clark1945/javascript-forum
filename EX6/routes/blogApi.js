@@ -81,7 +81,7 @@ router.get('/getArticleById',function(req,res){
 });
 router.post('/editArticle',function(req,res){
     articleModel.findById(req.body._id,function(err,data){
-        data.content=req.body.content;
+        data.content=req.body.content;//前端資料取代後端
         data.save(function(err){
             if(err){
                 res.json({'status':1,'msg':'error'});
@@ -94,7 +94,7 @@ router.post('/editArticle',function(req,res){
 });
 
 router.post('/delArticle', function (req, res) {
-    articleModel.findByIdAndRemove(req.body._id, function (err, data) {
+    articleModel.findByIdAndRemove(req.body._id, function (err, data) {//尋找並刪除
         if (err) {
             console.log(err);
             res.json({ "status": 1, "msg": "error" });
